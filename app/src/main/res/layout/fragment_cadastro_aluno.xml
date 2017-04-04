@@ -1,0 +1,89 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.luizh.cadastroaluno.CadastroAlunoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/lbl_codigo"
+            android:layout_width="120dp"
+            android:layout_height="39dp"
+            android:text="Code::"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/txt_codigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter the code..."
+            android:inputType="number"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/lbl_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:text="Name:"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="89dp" />
+
+        <EditText
+            android:id="@+id/txt_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter the name..."
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="119dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <TextView
+            android:id="@+id/lbl_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:text="Phone:"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="89dp" />
+
+        <EditText
+            android:id="@+id/txt_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter the phone..."
+            android:inputType="number"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="119dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <Button
+            android:id="@+id/btn_salvar"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:text="Save"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="236dp"
+            tools:layout_editor_absoluteY="143dp" />
+
+    </LinearLayout>
+</FrameLayout>
