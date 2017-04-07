@@ -9,6 +9,7 @@ public class Aluno {
     private Long codigo;
     private String nome;
     private String telefone;
+    private String link;
 
     public Long getCodigo() {
         return codigo;
@@ -27,5 +28,9 @@ public class Aluno {
 
     public String toString(){
         return "Code: " + codigo + "    Name: " + nome +  "     Phone: " + telefone;
+    }
+
+    public String getLink() {
+        return link;
     }
 }
