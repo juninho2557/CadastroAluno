@@ -79,22 +79,17 @@ public class CadastroAlunoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                EditText txt_codigo = (EditText)view.findViewById(R.id.txt_codigo);
                 EditText txt_nome = (EditText)view.findViewById(R.id.txt_nome);
                 EditText txt_telefone = (EditText)view.findViewById(R.id.txt_telefone);
 
                 Aluno aluno = new Aluno();
-                aluno.setCodigo(Long.parseLong(txt_codigo.getText().toString()));
-                aluno.setNome(txt_nome.getText().toString());
-                aluno.setTelefone(txt_telefone.getText().toString());
-
-                ArrayList array = new ArrayList();
+                aluno.setName(txt_nome.getText().toString());
+                aluno.setPhone(txt_telefone.getText().toString());
 
                 new AlunoDao().salvar(aluno);
 
-                Toast.makeText(getContext(),aluno.getNome()+" Cadastrado Com Sucesso! =)",
+                Toast.makeText(getContext(),aluno.getName()+" Cadastrado Com Sucesso! =)",
                     Toast.LENGTH_LONG).show();
-                txt_codigo.setText(null);
                 txt_nome.setText(null);
                 txt_telefone.setText(null);
             }

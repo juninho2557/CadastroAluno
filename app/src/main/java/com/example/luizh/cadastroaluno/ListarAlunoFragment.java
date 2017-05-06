@@ -83,12 +83,28 @@ public class ListarAlunoFragment extends Fragment {
         arrayAdapterAlunos.addAll(new AlunoDao().listar());
         listView.setAdapter(arrayAdapterAlunos);
 
+        // INTENT PARA PEGAR O PHONE DO LIST E EFETUAR UMA LIGAÇÃO PARA O MESMO.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Aluno a = (Aluno)parent.getItemAtPosition(position);
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+a.getTelefone())));
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+a.getPhone())));
+            }
+        });
+
+        // INTENT PARA PEGAR O REGISTRO DO LIST E CHAMAR PARA A TELA DE EDIÇÃO.
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                /*String codigo;
+                cursor.moveToPosition(position);
+                codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
+                Intent intent = new Intent(Consulta.this, Alterar.class);
+                intent.putExtra("codigo", codigo);
+                startActivity(intent);
+                finish();*/
             }
         });
 
