@@ -29,8 +29,6 @@ public class ConexaoBancoDados extends SQLiteOpenHelper {
     public ConexaoBancoDados(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
         super(context, name, factory, version);
         conn = getWritableDatabase();
-
-
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -41,7 +39,6 @@ public class ConexaoBancoDados extends SQLiteOpenHelper {
                 + PHONE + " varchar(30)"
                 +")";
         db.execSQL(sql);
-
     }
 
     @Override
@@ -49,11 +46,4 @@ public class ConexaoBancoDados extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS"+ TABLE);
         onCreate(db);
     }
-
-    /*public void deletar(int id){
-        String where = ConexaoBancoDados.ID + "=" + id;
-        conn.getReadableDatabase();
-        db.delete(CriaBanco.TABELA,where,null);
-        db.close();
-    }*/
 }

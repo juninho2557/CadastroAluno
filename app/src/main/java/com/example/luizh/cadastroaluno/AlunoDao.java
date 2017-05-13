@@ -3,7 +3,6 @@ package com.example.luizh.cadastroaluno;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +18,30 @@ class AlunoDao {
     public void salvar(Aluno aluno) { alunos.add(aluno); }
     public List<Aluno> listar() { return alunos; } */
 
-    public void salvar(Aluno aluno){
+    SQLiteDatabase conn = ConexaoBancoDados.getInstance();
+    ContentValues c = new ContentValues();
 
-        SQLiteDatabase conn = ConexaoBancoDados.getInstance();
-        ContentValues c = new ContentValues();
+    public void Salvar(Aluno aluno){
 
         c.put("name",aluno.getName());
         c.put("phone",aluno.getPhone());
 
-        conn.insert("student",null,c);
+        if(aluno.getId() == null || aluno.getId() == 0){
+            conn.insert("student",null,c);
+        }
+
+        else{
+            conn.update("student",c,"id="+aluno.getId(),null);
+        }
     }
 
-    public List<Aluno> listar() {
+    public void Excluir(Aluno aluno){
 
-        SQLiteDatabase conn = ConexaoBancoDados.getInstance();
+        conn.delete("student","id="+aluno.getId(),null);
+    }
+
+    public List<Aluno> Listar() {
+
         String[] columns = new String[]{"id", "name", "phone"};
         Cursor c = conn.query("student", columns, null, null, null, null, null);
 

@@ -23,6 +23,13 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class CadastroAlunoFragment extends Fragment {
+
+    Aluno aluno = null;
+
+    public void setAluno(Aluno a){
+        aluno = a;
+    }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,12 +73,18 @@ public class CadastroAlunoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        final View view = inflater.inflate(R.layout.fragment_cadastro_aluno, container, false);
 
-        final View view = inflater.
-                inflate(R.layout.fragment_cadastro_aluno, container, false);
+        if(aluno != null) {
+
+            EditText txt_nome = (EditText)view.findViewById(R.id.txt_nome);
+            EditText txt_telefone = (EditText)view.findViewById(R.id.txt_telefone);
+
+            txt_nome.setText(aluno.getName());
+            txt_telefone.setText(aluno.getPhone());
+        }
 
         Button btn_salvar = (Button) view.findViewById(R.id.btn_salvar);
 
@@ -82,20 +95,23 @@ public class CadastroAlunoFragment extends Fragment {
                 EditText txt_nome = (EditText)view.findViewById(R.id.txt_nome);
                 EditText txt_telefone = (EditText)view.findViewById(R.id.txt_telefone);
 
-                Aluno aluno = new Aluno();
+                if (aluno == null) {
+                    aluno = new Aluno();
+                }
+
                 aluno.setName(txt_nome.getText().toString());
                 aluno.setPhone(txt_telefone.getText().toString());
 
-                new AlunoDao().salvar(aluno);
+                new AlunoDao().Salvar(aluno);
 
-                Toast.makeText(getContext(),aluno.getName()+" Cadastrado Com Sucesso! =)",
-                    Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),aluno.getName()+" Salvo Com Sucesso! =)", Toast.LENGTH_LONG).show();
                 txt_nome.setText(null);
                 txt_telefone.setText(null);
+
+                aluno = null;
             }
         });
 
-        // Inflate the layout for this fragment
         return view;
     }
 

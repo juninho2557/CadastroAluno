@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.service.carrier.CarrierMessagingService;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,10 +81,11 @@ public class ListarAlunoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_listar_aluno, container, false);
         final ListView listView = (ListView)view.findViewById(R.id.lista_aluno);
         final ArrayAdapter<Aluno> arrayAdapterAlunos = new ArrayAdapter<Aluno>(getContext(),android.R.layout.simple_list_item_1);
-        arrayAdapterAlunos.addAll(new AlunoDao().listar());
+        arrayAdapterAlunos.addAll(new AlunoDao().Listar());
         listView.setAdapter(arrayAdapterAlunos);
 
         // INTENT PARA PEGAR O PHONE DO LIST E EFETUAR UMA LIGAÇÃO PARA O MESMO.
+        /*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,19 +94,41 @@ public class ListarAlunoFragment extends Fragment {
                 startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+a.getPhone())));
             }
         });
+        */
 
         // INTENT PARA PEGAR O REGISTRO DO LIST E CHAMAR PARA A TELA DE EDIÇÃO.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*String codigo;
-                cursor.moveToPosition(position);
-                codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
-                Intent intent = new Intent(Consulta.this, Alterar.class);
-                intent.putExtra("codigo", codigo);
-                startActivity(intent);
-                finish();*/
+                Aluno a = (Aluno)parent.getItemAtPosition(position);
+
+                CadastroAlunoFragment fragment = new CadastroAlunoFragment();
+                fragment.setAluno(a);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.conteudo_dos_fragmentos,fragment).commit();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Aluno a = (Aluno)parent.getItemAtPosition(position);
+
+                AlunoDao al = new AlunoDao();
+
+                al.Excluir(a);
+
+                Toast.makeText(getContext(),"Removido Com Sucesso! =)", Toast.LENGTH_LONG).show();
+
+                ListarAlunoFragment fragment = new ListarAlunoFragment();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.conteudo_dos_fragmentos,fragment).commit();
+
+                return true;
             }
         });
 
@@ -113,45 +137,27 @@ public class ListarAlunoFragment extends Fragment {
 
     /*
 
-    -- TESTES --
+    -- INTENTS --
 
-    //Toast.makeText(getContext()," Registro Pego: "+a.getTelefone(), Toast.LENGTH_LONG).show();
-    //String cursor = (listView.getItemAtPosition(position).toString());
-    //String S = view.getContext().toString();
-    //String phone = view.getContext().toString();
-    //parent.getAdapter().getItem(position);
-    //String kkk = (listView.getOnItemClickListener().toString());
-    //String text = listView.getAdapter(position).toString().trim();
-    //String hehe = listView.getItemAtPosition(position);
-    //String s = values.get(position).getCoun
-    //String phone = cursor.g
-    //String str = cursor.get
-    //Cursor c = (Cursor) listView.getItemAtPosition(position);
-    //String aa = c.getString(c.getColumnIndex("Phone"));
-    //Cursor currentCur = listView.getItemAtPosition(position);
-    //String name = currentCur.getString(1);
-
-    //Intent 1 - Ligação
-    //Intent it = new Intent(Intent.ACTION_DIAL);
-    //String p = "tel:" + "36434680";
-    //it.setData(Uri.parse(p));
-    //startActivity(it);
+    // Intent 1 - Ligação
+    Intent it = new Intent(Intent.ACTION_DIAL);
+    String p = "tel:" + "36434680";
+    it.setData(Uri.parse(p));
+    startActivity(it);
 
     //Intent 2 - Skype
-    //Uri uri = Uri.parse("996135114");
-    //Intent it = new Intent(Intent.ACTION_CALL,uri);
-    //startActivity(it);
+    Uri uri = Uri.parse("996135114");
+    Intent it = new Intent(Intent.ACTION_CALL,uri);
+    startActivity(it);
 
-    //Pra Internet
-    //Uri uri = Uri.parse("http://youtube.com");
-    //Intent it = new Intent(Intent.ACTION_VIEW,uri);
-    //startActivity(it);
+    // Pra Internet
+    Uri uri = Uri.parse("http://youtube.com");
+    Intent it = new Intent(Intent.ACTION_VIEW,uri);
+    startActivity(it);
 
-    //Toast.makeText(getContext(),aluno.getNome()+" Cadastrado Com Sucesso! =)",
-    //Toast.LENGTH_LONG).show();
-
-    //String val =(String) parent.getItemAtPosition(position);
-    //System.out.println("Value is "+val);
+    // Pra Exibir Uma Mensagem Na Tela
+    Toast.makeText(getContext(),aluno.getNome()+" Cadastrado Com Sucesso! =)",
+    Toast.LENGTH_LONG).show();
 
     */
 
