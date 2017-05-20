@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,11 +105,15 @@ public class CadastroAlunoFragment extends Fragment {
 
                 new AlunoDao().Salvar(aluno);
 
-                Toast.makeText(getContext(),aluno.getName()+" Salvo Com Sucesso! =)", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),aluno.getName()+" Saved Sucessfully! =)", Toast.LENGTH_LONG).show();
                 txt_nome.setText(null);
                 txt_telefone.setText(null);
 
                 aluno = null;
+
+                ListarAlunoFragment fragment = new ListarAlunoFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.conteudo_dos_fragmentos,fragment).commit();
             }
         });
 

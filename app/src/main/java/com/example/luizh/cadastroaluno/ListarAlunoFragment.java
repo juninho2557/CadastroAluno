@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.net.URI;
+import java.util.List;
 import java.util.zip.Inflater;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -79,10 +80,19 @@ public class ListarAlunoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_listar_aluno, container, false);
+
         final ListView listView = (ListView)view.findViewById(R.id.lista_aluno);
-        final ArrayAdapter<Aluno> arrayAdapterAlunos = new ArrayAdapter<Aluno>(getContext(),android.R.layout.simple_list_item_1);
-        arrayAdapterAlunos.addAll(new AlunoDao().Listar());
-        listView.setAdapter(arrayAdapterAlunos);
+
+        List<Aluno> lista = new AlunoDao().Listar();
+
+        AdapterPersonalizado adapter = new AdapterPersonalizado(lista, this);
+
+        listView.setAdapter(adapter);
+
+        // LIST VIEW PADRÃO
+        //final ArrayAdapter<Aluno> arrayAdapterAlunos = new ArrayAdapter<Aluno>(getContext(),android.R.layout.simple_list_item_1);
+        //arrayAdapterAlunos.addAll(new AlunoDao().Listar());
+        //listView.setAdapter(arrayAdapterAlunos);
 
         // INTENT PARA PEGAR O PHONE DO LIST E EFETUAR UMA LIGAÇÃO PARA O MESMO.
         /*
@@ -121,7 +131,7 @@ public class ListarAlunoFragment extends Fragment {
 
                 al.Excluir(a);
 
-                Toast.makeText(getContext(),"Removido Com Sucesso! =)", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),a.getName()+" Removed Sucessfully! =)", Toast.LENGTH_LONG).show();
 
                 ListarAlunoFragment fragment = new ListarAlunoFragment();
 
