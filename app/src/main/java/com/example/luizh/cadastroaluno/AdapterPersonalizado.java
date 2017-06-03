@@ -56,7 +56,7 @@ public class AdapterPersonalizado extends BaseAdapter {
         //Populando Views
         nome.setText(aluno.getName());
         telefone.setText(aluno.getPhone());
-        imagem.setImageResource(R.drawable.emoti);
+        imagem.setImageResource(R.drawable.luiz);
 
         return view;
     }
